@@ -14,7 +14,7 @@ context "Command Syncing" do
   end
 
   specify "should sync revisions" do
-    Time.expects(:now).returns(@changeset[:changed_at].localtime)
+    Time.stubs(:now).returns(@changeset[:changed_at].localtime)
     @connection = {:users => stub(:where => [@user.merge(:login => @changeset[:author])])}
     @connection.expects(:transaction).yields
     @command.stubs(:connection).returns(@connection)

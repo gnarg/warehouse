@@ -12,10 +12,10 @@ context "Command connections" do
       "mysql://rick:secret@localhost/test"
   end
 
-  specify "should build correct sequel connection string from activerecord config hash using postgresql" do
-    Warehouse::Command.yaml_to_connection_string(:adapter => 'postgresql', :username => 'rick', :password => 'secret', :host => 'myhost', :database => 'test').should == \
-      "postgres://rick:secret@myhost/test"
-  end
+  # specify "should build correct sequel connection string from activerecord config hash using postgresql" do
+  #   Warehouse::Command.yaml_to_connection_string(:adapter => 'postgresql', :username => 'rick', :password => 'secret', :host => 'myhost', :database => 'test').should == \
+  #     "postgres://rick:secret@myhost/test"
+  # end
 
   specify "should build correct sequel connection string from activerecord config hash using sqlite3" do
     Warehouse::Command.yaml_to_connection_string(:adapter => 'sqlite3', :username => 'rick', :password => 'secret', :host => 'myhost', :database => 'test').should == \

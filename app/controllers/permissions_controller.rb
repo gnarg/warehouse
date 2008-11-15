@@ -6,7 +6,7 @@ class PermissionsController < ApplicationController
   before_filter :load_all_repositories, :only => [:index, :create]
 
   def index
-    @permission = Permission.new
+    @permission ||= Permission.new
     @invitees   = User.find(:all, :order => 'login, email')
     @members    = current_repository.permissions.group_by &:user
     @invitees.delete_if { |i| @members.keys.include?(i) }
@@ -16,7 +16,7 @@ class PermissionsController < ApplicationController
   def create
     @permission = current_repository.grant(params[:permission])
     if @permission.nil? || @permission.new_record?
-      if (@user && @user.errors.any?) || (@permission && @permission.errors.any?)
+      if @permission && @permission.errors.any?
         @permission ||= Permission.new
         render :action => 'new'
       else
