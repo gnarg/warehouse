@@ -1,0 +1,2 @@
+page.insert_html :bottom, 'comments_body', :partial => 'comment'
+page.call 'Form.reset', 'new_comment'

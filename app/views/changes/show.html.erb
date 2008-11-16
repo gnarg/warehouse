@@ -18,5 +18,5 @@
 
 <% if @change.diffable? -%>
   <%= diff_for @change %>
-  <%= render(:partial => 'comments', :locals => { :comments => @change.comments }) %>
+  <%= render(:partial => 'comments', :locals => { :change => @change, :comments => @change.comments }) %>
 <% end -%>

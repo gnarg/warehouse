@@ -8,6 +8,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :changesets, :has_many => :changes, :collection => { :public => :get }
   
+  map.resources :changes, :has_many => :comments
+  
   map.with_options :path_prefix => 'admin' do |admin|
     admin.resources :bookmarks
     admin.resources :plugins
