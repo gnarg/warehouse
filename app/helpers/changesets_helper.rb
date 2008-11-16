@@ -84,7 +84,10 @@ module ChangesetsHelper
   def diff_for(change)
     unified_diff_for change.node, :id => dom_id(change) do |original_revision_num, current_revision_num|
       %(
-      <span class="csfile">#{link_to_node change.path, change.node, current_revision_num}</span>
+      <span class="csfile">
+        #{link_to_node change.path, change.node, current_revision_num}
+      </span>
+      (#{link_to pluralize(change.comments.size, 'comment'), changeset_change_path(@changeset, change)})
       #{link_to 'diff', hosted_url(:formatted_changeset_change, @changeset, change, :diff), :class => 'csdiff'}
       )
     end

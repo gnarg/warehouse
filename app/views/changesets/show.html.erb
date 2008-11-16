@@ -24,7 +24,7 @@
 </ul>
 
 <% @changes.select(&:diffable?).each do |change| -%>
-  <%= diff_for change %>
+  <%= diff_for change %>    
 <% end -%>
 
 <%= will_paginate @changes %>

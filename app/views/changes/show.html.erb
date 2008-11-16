@@ -1,16 +1,22 @@
-<div id="last-log">
+<div class="changeset clearfix" id="last-log">
+  <div class="cs-meta">
+    <%= avatar_for(@changeset.user) %>
     <p>
-      <span class="change-number"><%= link_to @changeset.revision, @changeset %></span>
-      <%=h @changeset.message %>
-      <span class="message">(<%= jstime @changeset.changed_at %>)</span>
+      <span class="change-number"><%= link_to(@changeset.revision, hosted_url(:changeset, @changeset.revision)) %></span>
     </p>
+  </div>
+  <div class="cs-log clearfix">      
+     <%= simple_format(h(@changeset.message)) %>
+    <span class="timenauthor">by <%= @changeset.author %>, <%= jstime @changeset.changed_at %></span>
+  </div>
 </div>
 
-<ul>
-  <li><strong><%=h @change.name %></strong> <%= link_to_node @change.path, @change.path, @changeset.revision %></li>
-</ul>
+<h3>
+  <%= pluralize(@change.comments.size, 'comment') %> for this change. 
+  <%= link_to "Return to revision #{@changeset.revision}.", changeset_path(@changeset) %>
+</h3>
 
 <% if @change.diffable? -%>
-  <h3>Changes for <%= link_to_node @change.path, @change.node, @changeset.revision %></h3>
-  <pre><%= diff_for @change %></pre>
+  <%= diff_for @change %>
+  <%= render(:partial => 'comments', :locals => { :comments => @change.comments }) %>
 <% end -%>

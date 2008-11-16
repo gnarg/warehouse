@@ -1,0 +1,16 @@
+<% if comments.any? %>
+<table class="comments">
+  <thead>
+    <tr><th>Author</th><th>Comment</th><th>Date</th></tr>
+  </thead>
+  <tbody>
+    <% comments.each do |comment| %>
+    <tr>
+      <td><%= comment.author %></td>
+      <td><%= comment.body %></td>
+      <td><%= comment.created_at %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>

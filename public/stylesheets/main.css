@@ -846,7 +846,7 @@ a.csdiff {
   font-weight: bold;
   color: #333;
   text-shadow: 2px 2px #eee;
-  display: block;
+  /*display: block;*/
   padding-left: 20px;
   background: url(../images/app/icons/arrow-small.png) 0 50% no-repeat;
 }
@@ -856,6 +856,33 @@ a.csdiff {
 }
 
 /* @end */
+
+/* @group Comments */
+
+.comments {
+  margin-bottom: 20px;
+  width: 100%
+}
+
+.comments th, .comments td {
+  padding: 5px 10px;
+}
+
+.comments th {
+  border-left: 1px solid #ddd;
+  text-align: left;
+  background: #f7f7f7;
+  padding: 5px 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.comments td {
+  background: #eee;
+  border-bottom: 1px solid #ccc;
+  border-left: 1px solid #ddd;
+}
+
+/* end */
 
 /* @group Diff and History */
 

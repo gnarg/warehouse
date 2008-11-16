@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 28) do
+ActiveRecord::Schema.define(:version => 29) do
 
   create_table "avatars", :force => true do |t|
     t.string  "content_type"
@@ -52,6 +52,14 @@ ActiveRecord::Schema.define(:version => 28) do
   add_index "changesets", ["repository_id"], :name => "index_changesets_on_repository_id"
   add_index "changesets", ["repository_id", "author"], :name => "idx_changesets_on_repo_id_and_author"
   add_index "changesets", ["repository_id", "changed_at"], :name => "index_changesets_on_repository_id_and_changed_at"
+
+  create_table "comments", :force => true do |t|
+    t.integer  "change_id"
+    t.text     "body"
+    t.string   "author"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "hooks", :force => true do |t|
     t.integer  "repository_id"

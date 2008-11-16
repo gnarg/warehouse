@@ -2,6 +2,7 @@ class Change < ActiveRecord::Base
   include PathAccessibility
   validates_presence_of :changeset_id, :name
   belongs_to :changeset
+  has_many :comments
   delegate :revision,     :to => :changeset
   delegate :repository,   :to => :changeset
   delegate :unified_diff, :to => :node
