@@ -58,6 +58,16 @@ context "Changesets Controller" do
     get :index
     assert_template 'index'
   end
+  
+  specify "should allow users to view changesets marked for review" do
+    login_as :rick
+    get :review
+    assert_template 'index'
+    assigns(:changesets).size.should > 0
+    assigns(:changesets).each do |changeset|
+      changeset.needs_review?.should == true
+    end
+  end
 
   private
     def expect_paginate(value = [])

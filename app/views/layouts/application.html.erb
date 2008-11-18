@@ -67,6 +67,7 @@
             <li id="code"<%= selected_navigation?(:browser) %>><%= link_to 'Browser', hosted_url(:browser) %></li>
             <% end -%>
             <li id="activity"<%= selected_navigation?(:activity) %>><%= link_to 'Activity', activity_url %></li>
+						<li id="review"<%= selected_navigation?(:review) %>><%= link_to 'Review', review_url %></li>
             <% if admin? || repository_admin? %>
             <li id="admin"<%= selected_navigation?(:admin) %>><%= link_to 'Admin', hosted_url(:admin) %></li>
             <% end %>

@@ -6,7 +6,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.diff "changesets/diff/:rev/*paths", :controller => "changesets", :action => "diff", :rev => /r\d+/
 
-  map.resources :changesets, :has_many => :changes, :collection => { :public => :get }
+  map.resources :changesets, :has_many => :changes, :collection => { :public => :get,
+                                                                     :review => :get }
   
   map.resources :changes, :has_many => :comments
   

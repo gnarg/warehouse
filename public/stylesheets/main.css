@@ -218,6 +218,10 @@ li#activity a {
   background:  url(../images/app/icons/activity.png) 5px 50% no-repeat;
 }
 
+li#review a {
+  background:  url(../images/app/icons/exclamation.png) 5px 50% no-repeat;
+}
+
 li#all-history {
   border: none !important;
   font-weight: bold;
@@ -742,6 +746,10 @@ li.prev a {
   font-weight: normal;
   font-size: 92%;
   display: block;
+}
+
+.needs_review {
+  color: red;
 }
 
 #change-list {

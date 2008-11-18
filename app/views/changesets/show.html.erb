@@ -2,16 +2,7 @@
 <% title "Changeset #{@changeset.revision}, #{h(@changeset.message)}" %>
 <% unless @message -%>
 <div class="changeset clearfix" id="last-log">
-  <div class="cs-meta">
-    <%= avatar_for(@changeset.user) %>
-    <p>
-      <span class="change-number"><%= link_to(@changeset.revision, hosted_url(:changeset, @changeset.revision)) %></span>
-    </p>
-  </div>
-  <div class="cs-log clearfix">      
-     <%= simple_format(h(@changeset.message)) %>
-    <span class="timenauthor">by <%= @changeset.author %>, <%= jstime @changeset.changed_at %></span>
-  </div>
+	<%= render :partial => 'meta', :locals => {:changeset => @changeset, :user => @changeset.user} %>
   <ul class="changeset-nav">
     <li class="prev"><%= link_to 'Previous Changeset', hosted_url(:changeset, previous_changeset), :class => 'back' if previous_changeset %></li>
     <li class="next"><%= link_to 'Next Changeset', hosted_url(:changeset, next_changeset), :class => 'forward' if next_changeset %></li>

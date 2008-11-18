@@ -6,6 +6,7 @@ one:
   message: brb going to the moon
   changed_at: 2007-05-17 22:27:43
   repository_id: 1
+  needs_review: 1
 two:
   id: 2
   revision: 2
@@ -20,6 +21,7 @@ three:
   message: take me to your leader
   changed_at: 2007-05-19 22:27:43
   repository_id: 2
+  needs_review: 1
 four:
   id: 4
   revision: 2

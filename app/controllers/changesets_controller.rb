@@ -1,11 +1,11 @@
 class ChangesetsController < ApplicationController
   before_filter :check_for_changeset_rev, :only => :index
-  before_filter :repository_subdomain_or_login_required, :only => :index
-  before_filter :repository_member_required, :except => [:index, :public]
+  before_filter :repository_subdomain_or_login_required, :only => [:index, :review]
+  before_filter :repository_member_required, :except => [:index, :public, :review]
   before_filter :root_domain_required, :only => :public
   before_filter :find_node, :only => :diff
 
-  caches_action_content :index, :show, :public
+  caches_action_content :index, :show, :public, :review
   
   helper_method :previous_changeset, :next_changeset
   expiring_attr_reader :changeset_paths, :find_changeset_paths
@@ -17,6 +17,24 @@ class ChangesetsController < ApplicationController
       when :all then current_repository.changesets.search(params[:q], :page => params[:page], :order => 'changesets.changed_at desc')
       when []   then []
       else current_repository.changesets.search_by_paths(params[:q], changeset_paths, :page => params[:page], :order => 'changesets.changed_at desc')
+    end
+    respond_for_changesets
+  end
+  
+  def review
+    @changesets = case changeset_paths
+      when :all 
+        current_repository.changesets.search(params[:q], 
+                                             :page => params[:page], 
+                                             :conditions => {:needs_review => true},
+                                             :order => 'changesets.changed_at desc')
+      when [] then []
+      else 
+        current_repository.changesets.search_by_paths(params[:q], 
+                                                      changeset_paths, 
+                                                      :page => params[:page], 
+                                                      :conditions => {:needs_review => true},
+                                                      :order => 'changesets.changed_at desc')
     end
     respond_for_changesets
   end

@@ -1,0 +1,13 @@
+<div class="cs-meta">
+  <%= avatar_for(user) %>
+  <p>
+    <span class="change-number"><%= link_to(changeset.revision, hosted_url(changeset.repository, :changeset, :id => changeset.revision)) %></span>
+  </p>
+</div>
+<div class="cs-log clearfix">      
+   <%= simple_format(h(changeset.message)) %>
+  <span class="timenauthor">by <%= changeset.author %>, <%= jstime changeset.changed_at %></span>
+	<% if changeset.needs_review? %>
+		<span class="needs_review">Needs Review</span>
+	<% end %>
+</div>

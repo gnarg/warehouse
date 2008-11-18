@@ -106,8 +106,13 @@ end
     @current_navigation ||= \
       case controller.controller_name
         when /browser|history/ then :browser
-        when /change/          then :activity
-        else                        :admin
+        when /change/
+          if controller.action_name == 'review'
+            :review
+          else
+            :activity
+          end
+        else :admin
       end
     @current_navigation == navigation
   end
@@ -131,6 +136,10 @@ end
     else
       logged_in? ? root_changesets_path : root_public_changesets_path
     end
+  end
+  
+  def review_url(repo=current_repository)
+    repo ? activity_url(repo) + '/review' : activity_url
   end
 
   @@default_jstime_format = "%d %b, %Y %I:%M %p"
