@@ -4,6 +4,7 @@ class ChangesetsController < ApplicationController
   before_filter :repository_member_required, :except => [:index, :public, :review]
   before_filter :root_domain_required, :only => :public
   before_filter :find_node, :only => :diff
+  before_filter :find_changeset, :only => [:show, :update]
 
   caches_action_content :index, :show, :public, :review
   
@@ -53,7 +54,7 @@ class ChangesetsController < ApplicationController
   end
   
   def show
-    @changeset = current_repository.changesets.find_by_paths(changeset_paths, :conditions => ['revision = ?', params[:id]])
+    
     unless @changeset
       return status_message(:error, "You must be a member of this repository to visit this page.", "changesets/error")
     end
@@ -75,6 +76,14 @@ class ChangesetsController < ApplicationController
 
   def action_caching_layout
     !(api_format? || request.format.diff?)
+  end
+  
+  def update
+    if @changeset.update_attributes(params[:changeset])
+      render :json => 'success'
+    else
+      render :json => 'failure'
+    end
   end
 
   protected
@@ -157,5 +166,9 @@ class ChangesetsController < ApplicationController
       end
       @revision = params[:rev][1..-1].to_i if params[:rev]
       @node     = current_repository.node(params[:paths] * '/', @revision)
+    end
+    
+    def find_changeset
+      @changeset = current_repository.changesets.find_by_paths(changeset_paths, :conditions => ['revision = ?', params[:id]])
     end
 end

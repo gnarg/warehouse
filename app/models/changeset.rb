@@ -6,6 +6,8 @@ class Changeset < ActiveRecord::Base
 
   delegate :backend, :to => :repository
   expiring_attr_reader :user, :retrieve_user
+  
+  attr_accessible :needs_review
 
   def self.search(query, options = {})
     with_search(query) { paginate(options) }

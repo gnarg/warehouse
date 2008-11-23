@@ -68,6 +68,14 @@ context "Changesets Controller" do
       changeset.needs_review?.should == true
     end
   end
+  
+  specify "should allow users to mark changesets for review" do
+    login_as :rick
+    changeset = changesets(:two)
+    xhr :put, :update, :id => changeset.id, :changeset => { :needs_review => '1' }
+    changeset.reload
+    changeset.needs_review?.should == true
+  end
 
   private
     def expect_paginate(value = [])

@@ -2,12 +2,14 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 context "Changeset" do
   specify "should require repository_id" do
-    ch = Changeset.new(:revision => 1)
+    ch = Changeset.new
+    ch.revision = 1
     ch.should.not.be.valid
   end
 
   specify "should require repository-unique revision" do
-    ch = Changeset.new(:revision => 1)
+    ch = Changeset.new
+    ch.revision = 1
     ch.repository_id = 1
     ch.should.not.be.valid
     ch.repository_id = 5
