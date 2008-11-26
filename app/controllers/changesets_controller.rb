@@ -1,7 +1,7 @@
 class ChangesetsController < ApplicationController
   before_filter :check_for_changeset_rev, :only => :index
-  before_filter :repository_subdomain_or_login_required, :only => [:index, :review]
-  before_filter :repository_member_required, :except => [:index, :public, :review]
+  before_filter :repository_subdomain_or_login_required, :only => [:index, :review, :update]
+  before_filter :repository_member_required, :except => [:index, :public, :review, :update]
   before_filter :root_domain_required, :only => :public
   before_filter :find_node, :only => :diff
   before_filter :find_changeset, :only => [:show, :update]
@@ -79,11 +79,7 @@ class ChangesetsController < ApplicationController
   end
   
   def update
-    if @changeset.update_attributes(params[:changeset])
-      render :json => 'success'
-    else
-      render :json => 'failure'
-    end
+    @changeset.update_attributes(params[:changeset])
   end
 
   protected

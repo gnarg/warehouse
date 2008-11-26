@@ -1,0 +1,5 @@
+if @changeset.needs_review?
+  page.call 'Element.addClassName', "review_#{@changeset.id}", 'needs_review'
+else
+  page.call 'Element.removeClassName', "review_#{@changeset.id}", 'needs_review'
+end

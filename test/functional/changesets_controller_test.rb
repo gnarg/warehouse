@@ -72,7 +72,8 @@ context "Changesets Controller" do
   specify "should allow users to mark changesets for review" do
     login_as :rick
     changeset = changesets(:two)
-    xhr :put, :update, :id => changeset.id, :changeset => { :needs_review => '1' }
+    xhr :put, :update, :id => changeset.id, :changeset => { :needs_review => '1' },
+                       :format => 'js'
     changeset.reload
     changeset.needs_review?.should == true
   end

@@ -1,3 +1,17 @@
+<% content_for :scripts do %>
+	<script type="text/javascript" charset="utf-8">
+	Event.addBehavior({
+		'input#changeset_needs_review_<%= changeset.id %>:change' : function(e) {
+			new Ajax.Request('/changesets/<%= changeset.revision %>.js', { asynchronous:true, 
+																					evalScripts:true, 
+																					parameters:$('edit_changeset_<%= changeset.id %>').serialize(),
+																					method: 'PUT' }); 
+			// return false;
+		}
+	});
+	</script>
+<% end %>
+
 <div class="cs-meta">
   <%= avatar_for(user) %>
   <p>
@@ -5,9 +19,14 @@
   </p>
 </div>
 <div class="cs-log clearfix">      
-   <%= simple_format(h(changeset.message)) %>
-  <span class="timenauthor">by <%= changeset.author %>, <%= jstime changeset.changed_at %></span>
-	<% if changeset.needs_review? %>
-		<span class="needs_review">Needs Review</span>
-	<% end %>
+  <%= link_to(simple_format(h(changeset.message)), hosted_url(changeset.repository, :changeset, :id => changeset.revision)) %>
+  	<span class="timenauthor">by <%= changeset.author %>, <%= jstime changeset.changed_at %></span>
+		<% form_for(changeset) do |f| %>
+	<span id="review_<%= changeset.id %>" <% if changeset.needs_review? %>class="needs_review"<% end %>>
+		Needs Review?	
+		<% if current_repository %>
+			<%= f.check_box :needs_review, :id => "changeset_needs_review_#{changeset.id}" %>
+		<% end %>
+	</span>
+	<% end %>		
 </div>
